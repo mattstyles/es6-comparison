@@ -15,6 +15,10 @@ class Monster {
         console.log( this.name, 'attacks for', this.power );
     }
 
+    defend() {
+        console.log( this.name, 'defends' );
+    }
+
     get power() {
         return value( this.strength + this.force );
     }
@@ -30,13 +34,20 @@ class SuperMonster extends Monster {
     attack() {
         console.log( this.name, 'decimates for', value( this.strength * 2 ) );
     }
+
+    defend() {
+        super();
+        console.log( this.name, 'is temporarily impervious to damage' );
+    }
 }
 
 
 var tengu = new Monster( 'Tengu' );
 
 tengu.attack();
+tengu.defend();
 
 var daimyo = new SuperMonster( 'Major Daimyo' );
 
 daimyo.attack();
+daimyo.defend();
