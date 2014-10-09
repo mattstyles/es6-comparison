@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6 Stay Classy</title>
+    <style>
+        body {
+            margin: 30px;
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Tahoma, sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            color: #3c4145;
+            background: #fafdff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        h1 {
+            color: #8c001a;
+            font-size: 48px;
+        }
+        h1,h2,h3,h4,h5,h6 {
+            font-weight: 300;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 4px;
+        }
+        li.info {
+            font-size: 21px;
+            margin-top: 18px;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stay classy</h1>
+    <ul id="console"></ul>
+
+
+    <script>
+        var terminal = document.querySelector( '#console' );
+        var stdout = console;
+        window.console = {};
+        window.console.log = function() {
+            stdout.log.apply( stdout, arguments );
+            var el = document.createElement( 'li' );
+            el.innerHTML = Array.prototype.join.call( arguments, ' ' );
+            terminal.appendChild( el );
+        }
+        window.console.info = function() {
+            stdout.log.apply( stdout, arguments );
+            var el = document.createElement( 'li' );
+            el.classList.add( 'info' );
+            el.innerHTML = Array.prototype.join.call( arguments, ' ' );
+            terminal.appendChild( el );
+        }
+    </script>
+    <script>console.info( 'JST' );</script>
+    <script src="./jstclass.js"></script>
+    <script>console.info( 'Traceur' );</script>
+    <script src="./trclassruntime.js"></script>
+</body>
+</html>
