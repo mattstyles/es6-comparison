@@ -2444,9 +2444,14 @@ System.register("../src/class", [], function() {
     this.strength = value(10);
     this.force = value(20);
   };
+  var $Monster = Monster;
   ($traceurRuntime.createClass)(Monster, {
-    attack: function() {
-      console.log(this.name, 'attacks for', this.power);
+    attack: function(target) {
+      if (!(target instanceof $Monster)) {
+        console.log(this.name, 'can not attack non-Monster');
+        return;
+      }
+      console.log(this.name, 'attacks the', target.name, 'for', this.power);
     },
     defend: function() {
       console.log(this.name, 'defends');
@@ -2461,18 +2466,24 @@ System.register("../src/class", [], function() {
   };
   var $SuperMonster = SuperMonster;
   ($traceurRuntime.createClass)(SuperMonster, {
-    attack: function() {
-      console.log(this.name, 'decimates for', value(this.strength * 2));
+    attack: function(target) {
+      console.log(this.name, 'decimates for', this.strength + (this.power * 2));
     },
     defend: function() {
       $traceurRuntime.superCall(this, $SuperMonster.prototype, "defend", []);
       console.log(this.name, 'is temporarily impervious to damage');
     }
   }, {}, Monster);
+  var Entity = function Entity(name) {
+    this.name = name;
+  };
+  ($traceurRuntime.createClass)(Entity, {}, {});
   var tengu = new Monster('Tengu');
-  tengu.attack();
-  tengu.defend();
   var daimyo = new SuperMonster('Major Daimyo');
+  var rect = new Entity('rectangle');
+  tengu.attack(daimyo);
+  tengu.attack(rect);
+  tengu.defend();
   daimyo.attack();
   daimyo.defend();
   return {};

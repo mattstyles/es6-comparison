@@ -11,8 +11,13 @@ function value( max ) {
         this.force = value( 20 );
     }
 
-    Monster.prototype.attack=function() {"use strict";
-        console.log( this.name, 'attacks for', this.power );
+    Monster.prototype.attack=function(target)  {"use strict";
+        if ( !( target instanceof Monster ) ) {
+            console.log( this.name, 'can not attack non-Monster' );
+            return;
+        }
+        
+        console.log( this.name, 'attacks the', target.name,'for', this.power );
     };
 
     Monster.prototype.defend=function() {"use strict";
@@ -31,8 +36,8 @@ for(var Monster____Key in Monster){if(Monster.hasOwnProperty(Monster____Key)){Su
         console.log( 'I feel a creature of great power has spawned' );
     }
 
-    SuperMonster.prototype.attack=function() {"use strict";
-        console.log( this.name, 'decimates for', value( this.strength * 2 ) );
+    SuperMonster.prototype.attack=function(target)  {"use strict";
+        console.log( this.name, 'decimates for', this.strength + ( this.power * 2 ) );
     };
 
     SuperMonster.prototype.defend=function() {"use strict";
@@ -42,12 +47,19 @@ for(var Monster____Key in Monster){if(Monster.hasOwnProperty(Monster____Key)){Su
 
 
 
+    function Entity(name)  {"use strict";
+        this.name = name;
+    }
+
+
+
 var tengu = new Monster( 'Tengu' );
-
-tengu.attack();
-tengu.defend();
-
 var daimyo = new SuperMonster( 'Major Daimyo' );
+var rect = new Entity( 'rectangle' );
+
+tengu.attack( daimyo );
+tengu.attack( rect );
+tengu.defend();
 
 daimyo.attack();
 daimyo.defend();
