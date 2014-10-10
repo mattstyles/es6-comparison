@@ -54,3 +54,5 @@ System.register("../src/class", [], function() {
   return {};
 });
 System.get("../src/class" + '');
+
+//# sourceMappingURL=trclass.map
