@@ -8,6 +8,12 @@ git clone git@github.com:mattstyles/es6-comparison
 npm install
 ```
 
+You’ll also need traceur installed globally
+
+```
+npm i -g traceur
+```
+
 Transpiled code is included in the repo for reference but `tr.sh` and `jst.sh` can be used to transpile the examples in the `src` directory, just feed the scripts a parameter to grab the source file and the it will do the rest. i.e.
 
 ```

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6 Stay Classy</title>
+    <style>
+        body {
+            margin: 30px;
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Tahoma, sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            color: #3c4145;
+            background: #fafdff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        h1 {
+            color: #7ec0ee;
+            font-size: 48px;
+        }
+        h1,h2,h3,h4,h5,h6 {
+            font-weight: 300;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 4px;
+        }
+        li.info {
+            font-size: 21px;
+            margin-top: 18px;
+            margin-bottom: 6px;
+        }
+        button {
+            background: #7ec0ee;
+            color: #fafdff;
+            padding: 12px 40px;
+            border: none;
+            border-top: 2px solid #7ec0ee;
+            border-bottom: 2px solid #7ec0ee;
+            border-radius: 4px;
+            font-size: 24px;
+        }
+        button:hover {
+            cursor: pointer;
+            border-bottom: 2px solid #678cd7;
+        }
+        button:active {
+            text-shadow: 0px 1px 2px rgba(0,0,0,.3);
+            border-top: 2px solid #678cd7;
+            border-bottom: 2px solid #7ec0ee;
+        }
+        button:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Modularise all the things</h1>
+    <button onclick="moduleTest( 5, 20 )">Module Test</button>
+    <ul id="console"></ul>
+
+
+    <script>
+        var terminal = document.querySelector( '#console' );
+        var stdout = console;
+        window.console = {};
+        window.console.log = function() {
+            stdout.log.apply( stdout, arguments );
+            var el = document.createElement( 'li' );
+            el.innerHTML = Array.prototype.join.call( arguments, ' ' );
+            terminal.appendChild( el );
+        }
+        window.console.info = function() {
+            stdout.log.apply( stdout, arguments );
+            var el = document.createElement( 'li' );
+            el.classList.add( 'info' );
+            el.innerHTML = Array.prototype.join.call( arguments, ' ' );
+            terminal.appendChild( el );
+        }
+    </script>
+    <script>console.info( 'Traceur' );</script>
+    <script src="./trmoduleruntime.js"></script>
+    <script>
+        var moduleTest = System.get( '../src/module' ).moduleTest;
+    </script>
+</body>
+</html>
